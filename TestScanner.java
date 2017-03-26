@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class TestScanner {
  
   public static void main(String[] args) throws FileNotFoundException {
-    String fileName = "flugtest.csv";
+    String fileName = "src/flugtest.csv";
     File file = new File(fileName);
    
     // this gives you a 2-dimensional array of strings
