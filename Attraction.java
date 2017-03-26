@@ -9,7 +9,7 @@ public class Attraction {
 	private int numPartyRatings;
 	private int numShoppingRatings;
 	private int numCultureRatings;
-	private int numSportsRatings;
+	private int numSportsRatings;																			
 	private int numBeachRatings;
 	
 	public double getPartyRating() {
