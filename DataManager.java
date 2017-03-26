@@ -46,4 +46,19 @@ public static List<List<String>> scanFile(String fileName) {
     }
     return lines;
 }
+public static ArrayList<Flight> crunchFile(String fileName){
+	//Lesum inn skrána
+	List<List<String>> flightFile = scanFile(fileName);
+	//Fjöldi fluga
+	int numFlights = flightFile.size();
+	//Forúthluta
+	ArrayList<Flight> flightList = new ArrayList<Flight>(numFlights);
+	//Hérna ætti að koma einhvers konar lykkja
+	//Flight flight = new Flight();
+	//Fara í gegnum hverja línu í skránni fyrir sig og gefa flight eiginleika.
+	//Fylla svo upp í flightList í lok hverrar ítrunar
+	//flight.setAirline(flightFile.get(i)).get(0);
+	//flightList.add(flight)
+	return flightList;
+}
 }
