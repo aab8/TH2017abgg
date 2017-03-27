@@ -1,6 +1,6 @@
 
 import java.util.ArrayList;
-
+// ÞETTA KOMMENT ER BARA GITHUB PRUFA
 public class SearchAndBook {
 	public static void main(String[] args) {
 		String fileName = "flugtest.csv";
