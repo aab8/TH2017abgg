@@ -17,4 +17,7 @@ public ArrayList<Flight> searchFlight(String whereTo, String whereFrom, String t
 public void printCurrentResults(ArrayList<Flight> flightList){
 	System.out.println("FLUGLISTI");
 }
+
+
+// Virkar að breyta firi Gunna? <– þetta er próf
 }
