@@ -73,6 +73,7 @@ public static ArrayList<Flight> crunchFile(String fileName){
 		private int numSeatsLeft;
 		*/
 		flightList.add(flight);
+		//BRYNJAR REFRESH
 	}
 	
 	return flightList;
