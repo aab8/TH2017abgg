@@ -81,11 +81,11 @@ public static ArrayList<Flight> crunchFile(String fileName){
 		flight.setTime(flightFile.get(i).get(3));
 		
 		//date - Dagsetning
-		flight.setDate(flightFile.get(i).get(2));
+		//flight.setDate(flightFile.get(i).get(2));
 		
 		//duration - Lengd flugs i klst
-		double duration = Double.parseDouble(flightFile.get(i).get(4));
-		flight.setDuration(duration);
+		//double duration = Double.parseDouble(flightFile.get(i).get(4));
+		//flight.setDuration(duration);
 		
 		/*
 		private String airline;
