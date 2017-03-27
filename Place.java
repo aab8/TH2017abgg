@@ -33,5 +33,11 @@ public void setAvgTemp(String avgTemp) {
 	this.avgTemp = avgTemp;
 }
 
+public boolean equals(Place place) {
+	if ( this.name.equals( place.getName() ) ) {
+		return true;
+	}
+	else return false;
+}
 
 }

@@ -6,10 +6,12 @@ public class Flight {
 	private Place whereFrom;
 	private double price;
 	private String time;
-	private int duration;
+	private String date;
+	private double duration;
 	private String airline;
 	private String flightNumber;
 	private int numSeatsLeft;
+	
 	public Place getWhereTo() {
 		return whereTo;
 	}
@@ -28,16 +30,22 @@ public class Flight {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public String getTime() {
 		return time;
 	}
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public int getDuration() {
+	public Double getDuration() {
 		return duration;
 	}
-	public void setDuration(int duration) {
+	public void setDuration(Double duration) {
 		this.duration = duration;
 	}
 	public String getAirline() {
@@ -59,4 +67,5 @@ public class Flight {
 		this.numSeatsLeft = numSeatsLeft;
 	}
 
+	
 }
