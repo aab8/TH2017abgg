@@ -7,8 +7,8 @@ import java.util.Scanner;
 
 public class DataManager {
 	public static void main(String[] args) throws FileNotFoundException {
-		String fileName = "flugtest.csv";
-		// String fileName = "src/flugtest.csv";
+		//String fileName = "flugtest.csv";
+		String fileName = "src/flugtest.csv";
 		List<List<String>> lines = scanFile(fileName);
 		int lineNo = 1;
 	    for(List<String> line: lines) {
@@ -57,8 +57,8 @@ public static ArrayList<Flight> crunchFile(String fileName){
 	//Herna aetti ad koma einhvers konar lykkja
 	for (int i = 0;i < numFlights;i++){
 		Flight flight = new Flight();
-		//Fara i gegnum hverja linu � skranni fyrir sig og gefa flight eiginleika.
-		//Fylla svo upp � flightList i lok hverrar itrunar
+		//Fara i gegnum hverja linu i skranni fyrir sig og gefa flight eiginleika.
+		//Fylla svo upp i flightList i lok hverrar itrunar
 		
 		//whereTo - Afangastadur
 		Place whereFrom = new Place();

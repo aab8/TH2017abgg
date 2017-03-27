@@ -3,8 +3,8 @@ import java.util.ArrayList;
 // ÞETTA KOMMENT ER BARA GITHUB PRUFA
 public class SearchAndBook {
 	public static void main(String[] args) {
-		String fileName = "flugtest.csv";
-		// String fileName = "src/flugtest.csv";
+		//String fileName = "flugtest.csv";
+		String fileName = "src/flugtest.csv";
 
 		String hvadan = "DXB";
 		String hvert = "KEF";
@@ -14,10 +14,10 @@ public class SearchAndBook {
 
 		System.out.println(test.size());
 
-		System.out.println("Leitaði að flugi frá " + hvadan + " til " + hvert);
-		System.out.println("Fann flug frá " + test.get(0).getWhereFrom().getName() + " til " + test.get(0).getWhereTo().getName() );
+		System.out.println("Leitadi ad flugi fra " + hvadan + " til " + hvert);
+		System.out.println("Fann flug fra " + test.get(0).getWhereFrom().getName() + " til " + test.get(0).getWhereTo().getName() );
 		if(test.size()>1) {
-			System.out.println("Fann líka flug frá " + test.get(1).getWhereFrom().getName()  + " til " + test.get(1).getWhereTo().getName() );
+			System.out.println("Fann lika flug fra " + test.get(1).getWhereFrom().getName()  + " til " + test.get(1).getWhereTo().getName() );
 		}
 		
 	}
@@ -31,8 +31,8 @@ public class SearchAndBook {
 	}
 
 	public static ArrayList<Flight> searchFlight(String whereTo, String whereFrom, String date){
-		String fileName = "flugtest.csv";
-		// String fileName = "src/flugtest.csv";
+		//String fileName = "flugtest.csv";
+		String fileName = "src/flugtest.csv";
 
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
 		ArrayList<Flight> foundFlight = new ArrayList<Flight>(flightList.size());
