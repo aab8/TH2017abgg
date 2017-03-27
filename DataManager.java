@@ -54,11 +54,27 @@ public static ArrayList<Flight> crunchFile(String fileName){
 	//Forúthluta
 	ArrayList<Flight> flightList = new ArrayList<Flight>(numFlights);
 	//Hérna ætti að koma einhvers konar lykkja
-	//Flight flight = new Flight();
-	//Fara í gegnum hverja línu í skránni fyrir sig og gefa flight eiginleika.
-	//Fylla svo upp í flightList í lok hverrar ítrunar
-	//flight.setAirline(flightFile.get(i)).get(0);
-	//flightList.add(flight)
+	for (int i = 0;i < numFlights;i++){
+		Flight flight = new Flight();
+		//Fara í gegnum hverja línu í skránni fyrir sig og gefa flight eiginleika.
+		//Fylla svo upp í flightList í lok hverrar ítrunar
+		Place whereFrom = new Place();
+		String whereFromName = flightFile.get(i).get(0);
+		whereFrom.setName(whereFromName);
+		flight.setWhereFrom(whereFrom);
+		
+		/*private Place whereTo;
+		private Place whereFrom;
+		private double price;
+		private String time;
+		private int duration;
+		private String airline;
+		private String flightNumber;
+		private int numSeatsLeft;
+		*/
+		flightList.add(flight);
+	}
+	
 	return flightList;
 }
 }
