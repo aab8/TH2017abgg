@@ -47,34 +47,51 @@ public static List<List<String>> scanFile(String fileName) {
     return lines;
 }
 public static ArrayList<Flight> crunchFile(String fileName){
-	//Lesum inn skrána
+	//Lesum inn skrana
 	List<List<String>> flightFile = scanFile(fileName);
-	//Fjöldi fluga
+	//Fjoldi fluga
 	int numFlights = flightFile.size();
-	//Forúthluta
+	//Foruthluta
 	ArrayList<Flight> flightList = new ArrayList<Flight>(numFlights);
-	//Hérna ætti að koma einhvers konar lykkja
+	//Herna aetti ad koma einhvers konar lykkja
 	for (int i = 0;i < numFlights;i++){
 		Flight flight = new Flight();
-		//Fara í gegnum hverja línu í skránni fyrir sig og gefa flight eiginleika.
-		//Fylla svo upp í flightList í lok hverrar ítrunar
+		//Fara i gegnum hverja linu í skranni fyrir sig og gefa flight eiginleika.
+		//Fylla svo upp í flightList i lok hverrar itrunar
+		
+		//whereTo - Afangastadur
 		Place whereFrom = new Place();
 		String whereFromName = flightFile.get(i).get(0);
 		whereFrom.setName(whereFromName);
 		flight.setWhereFrom(whereFrom);
 		
-		/*private Place whereTo;
-		private Place whereFrom;
-		private double price;
-		private String time;
-		private int duration;
+		//whereFrom - Brottfararstadur
+		Place whereTo = new Place();
+		String whereToName = flightFile.get(i).get(1);
+		whereTo.setName(whereToName);
+		flight.setWhereTo(whereTo);
+		
+		//price - Verd
+		double price = Double.parseDouble(flightFile.get(i).get(5));
+		flight.setPrice(price);
+		
+		
+		//time - Timi dags
+		flight.setTime(flightFile.get(i).get(3));
+		
+		//date - Dagsetning
+		//flight.setDate(flightFile.get(i).get(2));
+		
+		//duration - Lengd flugs i klst
+		int duration = Integer.parseInt(flightFile.get(i).get(4));
+		flight.setDuration(duration);
+		
+		/*
 		private String airline;
 		private String flightNumber;
 		private int numSeatsLeft;
 		*/
 		flightList.add(flight);
-		//BRYNJAR REFRESH
-		//GRETAR REFRESH
 	}
 	
 	return flightList;
