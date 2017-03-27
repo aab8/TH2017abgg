@@ -74,6 +74,7 @@ public static ArrayList<Flight> crunchFile(String fileName){
 		*/
 		flightList.add(flight);
 		//BRYNJAR REFRESH
+		//GRETAR REFRESH
 	}
 	
 	return flightList;
