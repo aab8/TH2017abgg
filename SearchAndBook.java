@@ -6,9 +6,9 @@ public class SearchAndBook {
 		String fileName = "flugtest.csv";
 		// String fileName = "src/flugtest.csv";
 
-		String hvadan = "KEF";
-		String hvert = "BRU";
-		String hvenaer = "20.04.17";
+		String hvadan = "DXB";
+		String hvert = "KEF";
+		String hvenaer = "15.05.17";
 
 		ArrayList<Flight> test = searchFlight(hvert, hvadan, hvenaer);
 
