@@ -11,7 +11,7 @@ public class Attraction {
 	private int numCultureRatings;
 	private int numSportsRatings;																			
 	private int numBeachRatings;
-	
+
 	public double getPartyRating() {
 		return partyRating;
 	}
@@ -42,5 +42,5 @@ public class Attraction {
 	public void setBeachRating(double beachRating) {
 		this.beachRating = beachRating;
 	}
-	
- }
+
+}
