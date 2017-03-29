@@ -4,10 +4,10 @@ import java.util.Collections;
 
 public class SearchAndBook {
 	public static void main(String[] args) {
-		//String fileName = "flugtest.csv";
-		String fileName = "src/flugtest.csv";
+		String fileName = "flugtest.csv";
+		//String fileName = "src/flugtest.csv";
 
-		String hvadan = "DAB";
+		String hvadan = "DXB";
 		String hvert = "KEF";
 		String hvenaer = "15.05.17";
 
@@ -29,8 +29,8 @@ public class SearchAndBook {
 	}
 
 	public static ArrayList<Flight> searchFlight(String whereTo, String whereFrom, String date){
-		//String fileName = "flugtest.csv";
-		String fileName = "src/flugtest.csv";
+		String fileName = "flugtest.csv";
+		//String fileName = "src/flugtest.csv";
 
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
 		ArrayList<Flight> foundFlight = new ArrayList<Flight>(flightList.size());
@@ -57,8 +57,8 @@ public class SearchAndBook {
 		System.out.println("Fra \tTil\tDags\t\tVerd");
 
 		for(int i = 0; i < flightList.size(); i++) {
-			System.out.print(flightList.get(i).getWhereTo().getName() + "\t");
 			System.out.print(flightList.get(i).getWhereFrom().getName() + "\t");
+			System.out.print(flightList.get(i).getWhereTo().getName() + "\t");
 			System.out.print(flightList.get(i).getDate() + "\t");
 			System.out.println(flightList.get(i).getPrice());
 		}
