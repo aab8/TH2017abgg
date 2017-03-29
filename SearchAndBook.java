@@ -53,7 +53,7 @@ public class SearchAndBook {
 	}
 
 	public static void printCurrentResults(ArrayList<Flight> flightList){
-		System.out.println("Frá\tTil\tDags\t\tVerð");
+		System.out.println("Fra\tTil\tDags\t\tVerd");
 		for(int i = 0; i < flightList.size(); i++) {
 			System.out.print(flightList.get(i).getWhereTo().getName() + "\t");
 			System.out.print(flightList.get(i).getWhereFrom().getName() + "\t");

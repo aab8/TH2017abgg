@@ -42,10 +42,10 @@ public class Flight {
 	public void setTime(String time) {
 		this.time = time;
 	}
-	public Double getDuration() {
+	public double getDuration() {
 		return duration;
 	}
-	public void setDuration(Double duration) {
+	public void setDuration(double duration) {
 		this.duration = duration;
 	}
 	public String getAirline() {
