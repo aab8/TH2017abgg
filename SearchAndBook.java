@@ -7,7 +7,7 @@ public class SearchAndBook {
 		//String fileName = "flugtest.csv";
 		String fileName = "src/flugtest.csv";
 
-		String hvadan = "DXB";
+		String hvadan = "DAB";
 		String hvert = "KEF";
 		String hvenaer = "15.05.17";
 
