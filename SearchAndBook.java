@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Collections;
 
 public class SearchAndBook {
@@ -8,27 +9,38 @@ public class SearchAndBook {
 		//String fileName = "flugtest.csv";
 		//String fileName = "src/flugtest.csv";
 
-		String hvadan = "KEF";
-		String hvert = "BRU";
-		String hvenaer = "20.04.17";
-		String hvenaerHeim = "30.04.17";
+		
+		//String hvadan = "KEF";
+		//String hvert = "BRU";
+		//String hvenaer = "20.04.17";
+		//String hvenaerHeim = "30.04.17";
 
-		ArrayList<Flight> ut = searchFlight(hvadan, hvert, hvenaer);
-		ArrayList<Flight> heim = searchFlightBack(hvert,hvadan,hvenaerHeim);
+		//ArrayList<Flight> ut = searchFlight(hvadan, hvert, hvenaer);
+		//ArrayList<Flight> heim = searchFlightBack(hvert,hvadan,hvenaerHeim);
 
 		//ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
-		System.out.println("Fann thessi flug ut, odyrasta efst:\n");
-		Collections.sort(ut);
-		printCurrentResults(ut);
-		System.out.println("Fann thessi flug heim, odyrasta efst:\n");
-		Collections.sort(heim);
-		printCurrentResults(heim);
+		//System.out.println("Fann thessi flug ut, odyrasta efst:\n");
+		//Collections.sort(ut);
+		//printCurrentResults(ut);
+		//System.out.println("Fann thessi flug heim, odyrasta efst:\n");
+		//Collections.sort(heim);
+		//printCurrentResults(heim);
 		//System.out.println("\nAf ollum thessum!\n");
+		//dateSort(flightList);
 		//printCurrentResults(flightList);
 	}
 
 
 	public ArrayList<Flight> flightList;
+	
+	public static void dateSort(ArrayList<Flight >flightList){
+		Collections.sort(flightList, new Comparator<Flight>() {
+			  public int compare(Flight o1, Flight o2) {
+			      return o1.getDate().compareTo(o2.getDate());
+			  }
+			});
+		return;
+	}
 
 	public ArrayList<Flight> customSort(ArrayList<Flight> flightList) {
 		
