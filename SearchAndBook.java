@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class SearchAndBook {
+	
 	public static void main(String[] args) {
 		String fileName = "flugtest.csv";
 		//String fileName = "src/flugtest.csv";
@@ -28,23 +29,21 @@ public class SearchAndBook {
 		return flightList;
 	}
 
-	public static ArrayList<Flight> searchFlight(String whereTo, String whereFrom, String date){
+	public static ArrayList<Flight> searchFlight(String whereFrom, String whereTo, String date){
 		String fileName = "flugtest.csv";
 		//String fileName = "src/flugtest.csv";
 
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
 		ArrayList<Flight> foundFlight = new ArrayList<Flight>(flightList.size());
-		// int count = 0;
 
 
 		for(int i = 0; i < flightList.size(); i++) {
+			
 			if(        whereFrom.equals(flightList.get(i).getWhereFrom().getName())
 					&& whereTo.equals(flightList.get(i).getWhereTo().getName())
 					&& date.equals(flightList.get(i).getDate()))
 			{
-
 				foundFlight.add(flightList.get(i));
-
 			}
 
 		}

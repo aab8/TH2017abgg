@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DataManager {
+	
 	public static void main(String[] args) throws FileNotFoundException {
 		String fileName = "flugtest.csv";
 		//String fileName = "src/flugtest.csv";
@@ -20,6 +21,7 @@ public class DataManager {
 			lineNo++;
 		}
 	}
+	
 	public static List<List<String>> scanFile(String fileName) {
 
 		File file = new File(fileName);
@@ -47,6 +49,7 @@ public class DataManager {
 		}
 		return lines;
 	}
+	
 	public static ArrayList<Flight> crunchFile(String fileName){
 		//Lesum inn skrana
 		List<List<String>> flightFile = scanFile(fileName);
