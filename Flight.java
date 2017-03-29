@@ -1,6 +1,6 @@
 
 
-public class Flight {
+public class Flight implements Comparable<Flight>{
 
 	private Place whereTo;
 	private Place whereFrom;
@@ -66,6 +66,12 @@ public class Flight {
 	public void setNumSeatsLeft(int numSeatsLeft) {
 		this.numSeatsLeft = numSeatsLeft;
 	}
+	
+	@Override     
+	  public int compareTo(Flight flight) {          
+		return (this.getPrice() < flight.getPrice() ? -1 : 
+            (this.getPrice() == flight.getPrice() ? 0 : 1));  
+	  }    
 
 	
 }

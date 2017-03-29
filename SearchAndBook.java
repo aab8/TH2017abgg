@@ -5,33 +5,39 @@ import java.util.Collections;
 public class SearchAndBook {
 	
 	public static void main(String[] args) {
-		String fileName = "flugtest.csv";
+		//String fileName = "flugtest.csv";
 		//String fileName = "src/flugtest.csv";
 
-		String hvadan = "DXB";
-		String hvert = "KEF";
-		String hvenaer = "15.05.17";
+		String hvadan = "KEF";
+		String hvert = "BRU";
+		String hvenaer = "20.04.17";
+		String hvenaerHeim = "30.04.17";
 
-		ArrayList<Flight> test = searchFlight(hvert, hvadan, hvenaer);
+		ArrayList<Flight> ut = searchFlight(hvadan, hvert, hvenaer);
+		ArrayList<Flight> heim = searchFlightBack(hvert,hvadan,hvenaerHeim);
 
-		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
-		System.out.println("Fann thessi flug:\n");
-		printCurrentResults(test);
-		System.out.println("\nAf ollum thessum!\n");
-		printCurrentResults(flightList);
+		//ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
+		System.out.println("Fann thessi flug ut, odyrasta efst:\n");
+		Collections.sort(ut);
+		printCurrentResults(ut);
+		System.out.println("Fann thessi flug heim, odyrasta efst:\n");
+		Collections.sort(heim);
+		printCurrentResults(heim);
+		//System.out.println("\nAf ollum thessum!\n");
+		//printCurrentResults(flightList);
 	}
 
 
 	public ArrayList<Flight> flightList;
 
-	public ArrayList<Flight> customSort(ArrayList<Flight> flightList, String sortBy, boolean order) {
-
+	public ArrayList<Flight> customSort(ArrayList<Flight> flightList) {
+		
 		return flightList;
 	}
 
 	public static ArrayList<Flight> searchFlight(String whereFrom, String whereTo, String date){
-		String fileName = "flugtest.csv";
-		//String fileName = "src/flugtest.csv";
+		//String fileName = "flugtest.csv";
+		String fileName = "src/flugtest.csv";
 
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
 		ArrayList<Flight> foundFlight = new ArrayList<Flight>(flightList.size());
@@ -50,7 +56,29 @@ public class SearchAndBook {
 
 		return foundFlight;
 	}
+	
+	public static ArrayList<Flight> searchFlightBack(String whereFrom, String whereTo, String dateBack){
+		//String fileName = "flugtest.csv";
+		String fileName = "src/flugtest.csv";
 
+		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
+		ArrayList<Flight> foundFlightBack = new ArrayList<Flight>(flightList.size());
+
+
+		for(int i = 0; i < flightList.size(); i++) {
+			
+			if(        whereFrom.equals(flightList.get(i).getWhereFrom().getName())
+					&& whereTo.equals(flightList.get(i).getWhereTo().getName())
+					&& dateBack.equals(flightList.get(i).getDate()))
+			{
+				foundFlightBack.add(flightList.get(i));
+			}
+
+		}
+
+		return foundFlightBack;
+	}
+	
 	public static void printCurrentResults(ArrayList<Flight> flightList){
 
 		System.out.println("Fra \tTil\tDags\t\tVerd");
@@ -59,7 +87,7 @@ public class SearchAndBook {
 			System.out.print(flightList.get(i).getWhereFrom().getName() + "\t");
 			System.out.print(flightList.get(i).getWhereTo().getName() + "\t");
 			System.out.print(flightList.get(i).getDate() + "\t");
-			System.out.println(flightList.get(i).getPrice());
+			System.out.println(flightList.get(i).getPrice()+"\n");
 		}
 	}
 
