@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class DataManager {
 	public static void main(String[] args) throws FileNotFoundException {
 		String fileName = "flugtest.csv";
-		// String fileName = "src/flugtest.csv";
+		//String fileName = "src/flugtest.csv";
 		List<List<String>> lines = scanFile(fileName);
 		int lineNo = 1;
 		for(List<String> line: lines) {
@@ -87,11 +87,6 @@ public class DataManager {
 			double duration = Double.parseDouble(flightFile.get(i).get(4));
 			flight.setDuration(duration);
 
-			/*
-		private String airline;
-		private String flightNumber;
-		private int numSeatsLeft;
-			 */
 			flightList.add(flight);
 		}
 

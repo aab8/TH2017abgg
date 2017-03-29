@@ -5,21 +5,14 @@ import java.util.Collections;
 public class SearchAndBook {
 	public static void main(String[] args) {
 		String fileName = "flugtest.csv";
-		// String fileName = "src/flugtest.csv";
+		//String fileName = "src/flugtest.csv";
 
 		String hvadan = "DXB";
 		String hvert = "KEF";
 		String hvenaer = "15.05.17";
 
 		ArrayList<Flight> test = searchFlight(hvert, hvadan, hvenaer);
-		
-		/*
-		System.out.println("Leitaði að flugi frá " + hvadan + " til " + hvert);
-		System.out.println("Fann flug frá " + test.get(0).getWhereFrom().getName() + " til " + test.get(0).getWhereTo().getName() );
-		if(test.size()>1) {
-			System.out.println("Fann líka flug frá " + test.get(1).getWhereFrom().getName()  + " til " + test.get(1).getWhereTo().getName() );
-		}
-		*/
+
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
 		System.out.println("Fann þessi flug:\n");
 		printCurrentResults(test);
@@ -37,7 +30,7 @@ public class SearchAndBook {
 
 	public static ArrayList<Flight> searchFlight(String whereTo, String whereFrom, String date){
 		String fileName = "flugtest.csv";
-		// String fileName = "src/flugtest.csv";
+		//String fileName = "src/flugtest.csv";
 
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
 		ArrayList<Flight> foundFlight = new ArrayList<Flight>(flightList.size());
