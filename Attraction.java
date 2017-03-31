@@ -42,5 +42,37 @@ public class Attraction {
 	public void setBeachRating(double beachRating) {
 		this.beachRating = beachRating;
 	}
+	public int getNumPartyRatings() {
+		return numPartyRatings;
+	}
+	public void setNumPartyRatings(int numPartyRatings) {
+		this.numPartyRatings = numPartyRatings;
+	}
+	public int getNumShoppingRatings() {
+		return numShoppingRatings;
+	}
+	public void setNumShoppingRatings(int numShoppingRatings) {
+		this.numShoppingRatings = numShoppingRatings;
+	}
+	public int getNumCultureRatings() {
+		return numCultureRatings;
+	}
+	public void setNumCultureRatings(int numCultureRatings) {
+		this.numCultureRatings = numCultureRatings;
+	}
+	public int getNumSportsRatings() {
+		return numSportsRatings;
+	}
+	public void setNumSportsRatings(int numSportsRatings) {
+		this.numSportsRatings = numSportsRatings;
+	}
+	public int getNumBeachRatings() {
+		return numBeachRatings;
+	}
+	public void setNumBeachRatings(int numBeachRatings) {
+		this.numBeachRatings = numBeachRatings;
+	}
+	
+	
 
 }
