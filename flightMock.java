@@ -1,6 +1,4 @@
-
-
-public class Flight implements Comparable<Flight>{
+public class flightMock{
 
 	private Place whereTo;
 	private Place whereFrom;
@@ -13,77 +11,106 @@ public class Flight implements Comparable<Flight>{
 	private int numSeatsLeft;
 	
 	
-	public static Flight createFlight(Place whereTo, Place whereFrom, double price, String time, String date,double duration){
-		Flight newFlight = new Flight();
-		newFlight.setWhereTo(whereTo);
-		newFlight.setWhereFrom(whereFrom);
-		newFlight.setPrice(price);
-		newFlight.setTime(time);
-		newFlight.setDate(date);
-		newFlight.setDuration(duration);
-		
-		return newFlight;
+	public  flightMock(Place whereTo, Place whereFrom, double price, String time, String date,double duration){
+		this.whereTo = whereTo;
+		this.whereFrom = whereFrom;
+		this.price = price;
+		this.time = time;
+		this.date = date;
+		this.duration = duration;
 	}
+
+
 	public Place getWhereTo() {
 		return whereTo;
 	}
+
+
 	public void setWhereTo(Place whereTo) {
 		this.whereTo = whereTo;
 	}
+
+
 	public Place getWhereFrom() {
 		return whereFrom;
 	}
+
+
 	public void setWhereFrom(Place whereFrom) {
 		this.whereFrom = whereFrom;
 	}
+
+
 	public double getPrice() {
 		return price;
 	}
+
+
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	public String getDate() {
-		return date;
-	}
-	public void setDate(String date) {
-		this.date = date;
-	}
+
+
 	public String getTime() {
 		return time;
 	}
+
+
 	public void setTime(String time) {
 		this.time = time;
 	}
+
+
+	public String getDate() {
+		return date;
+	}
+
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+
 	public double getDuration() {
 		return duration;
 	}
+
+
 	public void setDuration(double duration) {
 		this.duration = duration;
 	}
+
+
 	public String getAirline() {
 		return airline;
 	}
+
+
 	public void setAirline(String airline) {
 		this.airline = airline;
 	}
+
+
 	public String getFlightNumber() {
 		return flightNumber;
 	}
+
+
 	public void setFlightNumber(String flightNumber) {
 		this.flightNumber = flightNumber;
 	}
+
+
 	public int getNumSeatsLeft() {
 		return numSeatsLeft;
 	}
+
+
 	public void setNumSeatsLeft(int numSeatsLeft) {
 		this.numSeatsLeft = numSeatsLeft;
 	}
-	
-	@Override     
-	  public int compareTo(Flight flight) {          
-		return (this.getPrice() < flight.getPrice() ? -1 : 
-            (this.getPrice() == flight.getPrice() ? 0 : 1));  
-	  }    
 
-	
+
+
 }
+
