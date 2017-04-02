@@ -8,6 +8,11 @@ public class Place {
 	private String continent;
 	private String avgTemp;
 
+	public Place(String name) {
+		this.name = name;
+	}
+	
+
 	public String getName() {
 		return name;
 	}

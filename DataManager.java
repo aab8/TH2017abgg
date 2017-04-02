@@ -59,37 +59,29 @@ public class DataManager {
 		ArrayList<Flight> flightList = new ArrayList<Flight>(numFlights);
 		//Herna aetti ad koma einhvers konar lykkja
 		for (int i = 0;i < numFlights;i++){
-			Flight flight = new Flight();
-			//Fara i gegnum hverja linu i skranni fyrir sig og gefa flight eiginleika.
-			//Fylla svo upp i flightList i lok hverrar itrunar
+			//Flight flight = new Flight();
+			//Fara i gegnum hverja linu i skranni fyrir sig og na i eiginleika fyrir flight.
+			//Baeta svo vid i flightList i lok hverrar itrunar
 
 			//whereTo - Afangastadur
-			Place whereFrom = new Place();
-			String whereFromName = flightFile.get(i).get(0);
-			whereFrom.setName(whereFromName);
-			flight.setWhereFrom(whereFrom);
-
+			Place whereFrom = new Place(flightFile.get(i).get(0));
+		
 			//whereFrom - Brottfararstadur
-			Place whereTo = new Place();
-			String whereToName = flightFile.get(i).get(1);
-			whereTo.setName(whereToName);
-			flight.setWhereTo(whereTo);
+			Place whereTo = new Place(flightFile.get(i).get(1));
 
 			//price - Verd
 			double price = Double.parseDouble(flightFile.get(i).get(5));
-			flight.setPrice(price);
-
 
 			//time - Timi dags
-			flight.setTime(flightFile.get(i).get(3));
+			String time = (flightFile.get(i).get(3));
 
 			//date - Dagsetning
-			flight.setDate(flightFile.get(i).get(2));
+			String date = (flightFile.get(i).get(2));
 
 			//duration - Lengd flugs i klst
 			double duration = Double.parseDouble(flightFile.get(i).get(4));
-			flight.setDuration(duration);
-
+			
+			Flight flight = new Flight(whereTo, whereFrom, price, time, date, duration);
 			flightList.add(flight);
 		}
 

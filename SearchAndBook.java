@@ -5,20 +5,39 @@ import java.util.Collections;
 
 public class SearchAndBook {
 	
+	public String fileName;
+	public ArrayList<Flight> flightList;
+	
+	// Smidur fyrir SearchAndBook
+	public SearchAndBook(ArrayList<Flight> flightList, String fileName) {
+		this.fileName = fileName;
+		this.flightList = flightList;
+	}
+	
+	public String getFileName() {
+		return fileName;
+	}
+	
+	public ArrayList<Flight> getFlightList() {
+		return flightList;
+	}
+	
+	
 	public static void main(String[] args) {
 		//String fileName = "flugtest.csv";
-		//String fileName = "src/flugtest.csv";
+		String fileName = "src/flugtest.csv";
 
 		
-		String hvadan = "BRU";
-		String hvert = "KEF";
-		String hvenaer = "05.04.17";
+		String hvadan = "KEF";
+		String hvert = "BRU";
+		String hvenaer = "20.04.17";
+		
 		//String hvenaerHeim = "30.04.17";
-
-		ArrayList<Flight> ut = searchFlight(hvadan, hvert, hvenaer);
+		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
+		ArrayList<Flight> ut = searchFlight(flightList,hvadan, hvert, hvenaer);
 		//ArrayList<Flight> heim = searchFlightBack(hvert,hvadan,hvenaerHeim);
 
-		//ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
+		
 		//System.out.println("Fann thessi flug ut, reyndi ad rada eftir dagsetningu:\n");
 		System.out.println("Fann thessi flug ut, odyrasta efst:\n");
 		Collections.sort(ut);
@@ -32,9 +51,9 @@ public class SearchAndBook {
 	}
 
 
-	public ArrayList<Flight> flightList;
 	
-	public static void dateSort(ArrayList<Flight >flightList){
+	
+	public static void dateSort(ArrayList<Flight> flightList){
 		Collections.sort(flightList, new Comparator<Flight>() {
 			  public int compare(Flight flight1, Flight flight2) {
 			      return flight1.getDate().compareTo(flight2.getDate());
@@ -48,33 +67,12 @@ public class SearchAndBook {
 		return flightList;
 	}
 
-	public static ArrayList<Flight> searchFlight(String whereFrom, String whereTo, String date){
+	public static ArrayList<Flight> searchFlight(ArrayList<Flight> flightList,String whereFrom, String whereTo, String date){
 		//String fileName = "flugtest.csv";
 		//String fileName = "src/flugtest.csv";
-		Place keflavik = new Place();
-		keflavik.setName("KEF");
-		Place copenhagen = new Place();
-		copenhagen.setName("CPH");
-		Place brussel = new Place();
-		brussel.setName("BRU");
-		Place losangeles = new Place();
-		losangeles.setName("LAX");
-
-		ArrayList<Flight> flightList = new ArrayList<Flight>(5);
-		Flight flight1 = Flight.createFlight(keflavik, copenhagen,30000,"9","20.04.17",2.5);
-		flightList.add(flight1);
+		//ArrayList<Flight> flightList = DataManager.cruchFile(filename);
 		
-		Flight flight2 = Flight.createFlight(keflavik, losangeles,35000,"7","25.04.17",5.5);
-		flightList.add(flight2);
 		
-		Flight flight3 = Flight.createFlight(losangeles, copenhagen,90000,"21","20.09.17",8);
-		flightList.add(flight3);
-		
-		Flight flight4 = Flight.createFlight(brussel, copenhagen,20000,"4","24.04.17",2.0);
-		flightList.add(flight4);
-		
-		Flight flight5 = Flight.createFlight(keflavik, brussel,30000,"16","05.04.17",3.5);
-		flightList.add(flight5);
 		
 				
 		ArrayList<Flight> foundFlight = new ArrayList<Flight>(flightList.size());

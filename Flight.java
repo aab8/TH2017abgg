@@ -13,17 +13,16 @@ public class Flight implements Comparable<Flight>{
 	private int numSeatsLeft;
 	
 	
-	public static Flight createFlight(Place whereTo, Place whereFrom, double price, String time, String date,double duration){
-		Flight newFlight = new Flight();
-		newFlight.setWhereTo(whereTo);
-		newFlight.setWhereFrom(whereFrom);
-		newFlight.setPrice(price);
-		newFlight.setTime(time);
-		newFlight.setDate(date);
-		newFlight.setDuration(duration);
-		
-		return newFlight;
+	public  Flight(Place whereTo, Place whereFrom, double price, String time, String date,double duration){
+	
+		this.whereTo = whereTo;
+		this.whereFrom = whereFrom;
+		this.price = price;
+		this.time = time;
+		this.date = date;
+		this.duration = duration;
 	}
+	
 	public Place getWhereTo() {
 		return whereTo;
 	}
