@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.io.PrintWriter;
 
 public class DataManager {
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		String fileName = "flugtest.csv";
-		//String fileName = "src/flugtest.csv";
+		//String fileName = "flugtest.csv";
+		String fileName = "src/flugtest.csv";
+		
+		/* PRENTAR ÚT "flugtest.csv"
 		List<List<String>> lines = scanFile(fileName);
 		int lineNo = 1;
 		for(List<String> line: lines) {
@@ -20,6 +23,10 @@ public class DataManager {
 			}
 			lineNo++;
 		}
+		*/
+		ArrayList<Flight> flightList = crunchFile(fileName);
+		writeCSV(flightList);
+		
 	}
 	
 	public static List<List<String>> scanFile(String fileName) {
@@ -81,10 +88,45 @@ public class DataManager {
 			//duration - Lengd flugs i klst
 			double duration = Double.parseDouble(flightFile.get(i).get(4));
 			
-			Flight flight = new Flight(whereTo, whereFrom, price, time, date, duration);
+			int numSeatsLeft = Integer.parseInt(flightFile.get(i).get(6));
+			
+			int flightNumber = Integer.parseInt(flightFile.get(i).get(7));
+			
+			Flight flight = new Flight(whereTo, whereFrom, price, time, date, duration, numSeatsLeft,flightNumber);
 			flightList.add(flight);
 		}
 
 		return flightList;
 	}
+	
+	public static void writeCSV(ArrayList<Flight> flightList) throws FileNotFoundException{
+        PrintWriter pw = new PrintWriter(new File("src/flugtest.csv"));
+        StringBuilder line = new StringBuilder();
+ 
+        for(int i = 0; i < flightList.size(); i++)
+        {
+            line.append(flightList.get(i).getWhereFrom().getName());
+            line.append(",");
+            line.append(flightList.get(i).getWhereTo().getName());
+            line.append(",");
+            line.append(flightList.get(i).getDate());
+            line.append(",");
+            line.append(flightList.get(i).getTime());
+            line.append(",");
+            line.append(flightList.get(i).getDuration());
+            line.append(",");
+            line.append(flightList.get(i).getPrice());
+            line.append(",");
+            line.append(flightList.get(i).getNumSeatsLeft());
+            //line.append((int) (Math.random()*80));    Byr til random numSeatsLeft
+            line.append(",");
+            line.append(1000+i);
+            line.append(",");
+            line.append("\n");
+        }
+ 
+        pw.write(line.toString());
+        pw.close();
+    }
+	
 }

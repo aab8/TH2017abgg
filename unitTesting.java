@@ -10,7 +10,7 @@ public class unitTesting {
 	private Flight flight1, flight2, flight3, flight4, flight5;
 	private ArrayList<Flight> flightList;
 	private Place keflavik, copenhagen, brussel, losangeles;
-
+	/*
 	@Before
 	public void setUp() {  
 		keflavik = new Place("KEF");
@@ -33,7 +33,7 @@ public class unitTesting {
 		flightList.add(flight5);
 	}
 
-
+*/
 
 	@After
 	public void tearDown(){
@@ -49,7 +49,7 @@ public class unitTesting {
 		losangeles = null;
 	}
 
-	@Test
+	/*@Test
 	public void testSearchSize() {
 		ArrayList<Flight> testList = SearchAndBook.searchFlight(flightList,"KEF","BRU","20.04.17");
 		assertEquals(1,testList.size());
@@ -91,7 +91,7 @@ public class unitTesting {
 		ArrayList<Flight> testList = SearchAndBook.searchFlight(flightList,"CPH","KEF","25.04.17");
 		assertTrue(testList.get(0).getPrice() < testList.get(1).getPrice());
 	}
-
+*/
 
 
 }

@@ -9,11 +9,10 @@ public class Flight implements Comparable<Flight>{
 	private String date;
 	private double duration;
 	private String airline;
-	private String flightNumber;
 	private int numSeatsLeft;
+	private int flightNumber;
 	
-	
-	public  Flight(Place whereTo, Place whereFrom, double price, String time, String date,double duration){
+	public  Flight(Place whereTo, Place whereFrom, double price, String time, String date,double duration,int numSeatsLeft, int flightNumber){
 	
 		this.whereTo = whereTo;
 		this.whereFrom = whereFrom;
@@ -21,6 +20,8 @@ public class Flight implements Comparable<Flight>{
 		this.time = time;
 		this.date = date;
 		this.duration = duration;
+		this.numSeatsLeft = numSeatsLeft;
+		this.flightNumber = flightNumber;
 	}
 	
 	public Place getWhereTo() {
@@ -65,10 +66,10 @@ public class Flight implements Comparable<Flight>{
 	public void setAirline(String airline) {
 		this.airline = airline;
 	}
-	public String getFlightNumber() {
+	public int getFlightNumber() {
 		return flightNumber;
 	}
-	public void setFlightNumber(String flightNumber) {
+	public void setFlightNumber(int flightNumber) {
 		this.flightNumber = flightNumber;
 	}
 	public int getNumSeatsLeft() {
