@@ -31,6 +31,7 @@ import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
+import java.io.IOException;
 
 public class vidmot extends JFrame {
 
@@ -95,24 +96,31 @@ public class vidmot extends JFrame {
 	int monthBack;
 	int yearBack;
 	int numberOfPassengers;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
+	private JTextField nafnBooking;
+	private JTextField heimilisfangBooking;
+	private JTextField simiBooking;
+	private JTextField emailBooking;
+	private JTextField kk1Booking;
+	private JTextField kk2Booking;
+	private JTextField kk3Booking;
+	private JTextField kk4Booking;
+	private JTextField securityNoBooking;
 	private JComboBox expireMonth;
 	private JComboBox expireYear;
+	private int geyma;
+	int monthExpires;
+	int yearExpires;
+	int flightNumberOut;
+	int flightNumberBack;
+	ArrayList<Flight> flightListOut;
+	ArrayList<Flight> flightListBack;
+	String creditNO;
 
 
 
-
-	public vidmot() {
+	public vidmot()  throws IOException  {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 660, 562);
+		setBounds(100, 100, 671, 562);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -138,13 +146,13 @@ public class vidmot extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				date = SearchAndBook.makeDate(day, month, year);
-				ArrayList<Flight> flightListOut = SearchAndBook.searchFlight(whereFromName, whereToName, date,numberOfPassengers);
+				flightListOut = SearchAndBook.searchFlight(whereFromName, whereToName, date,numberOfPassengers);
 				Collections.sort(flightListOut);
 				String[] stringFlightListOut = SearchAndBook.stringCurrentResults(flightListOut);
 				flightList.setListData(stringFlightListOut);
 
 				dateHome = SearchAndBook.makeDate(dayHome, monthBack, yearBack);
-				ArrayList<Flight> flightListBack = SearchAndBook.searchFlight(whereToName, whereFromName, dateHome,numberOfPassengers);
+				flightListBack = SearchAndBook.searchFlight(whereToName, whereFromName, dateHome,numberOfPassengers);
 				Collections.sort(flightListBack);
 				String[] stringFlightList = SearchAndBook.stringCurrentResults(flightListBack);
 				flightListHome.setListData(stringFlightList);
@@ -387,49 +395,80 @@ public class vidmot extends JFrame {
 		contentPane.add(numPassengers);
 
 		bookingWindow = new JInternalFrame("Flight booking");
-		bookingWindow.setBounds(47, 34, 507, 437);
+		bookingWindow.setBounds(37, 24, 507, 437);
 		contentPane.add(bookingWindow);
 
-		textField = new JTextField();
-		textField.setColumns(10);
+		nafnBooking = new JTextField();
+		nafnBooking.setColumns(10);
 
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
+		heimilisfangBooking = new JTextField();
+		heimilisfangBooking.setColumns(10);
 
-		textField_2 = new JTextField();
-		textField_2.setColumns(10);
+		simiBooking = new JTextField();
+		simiBooking.setColumns(10);
 
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
+		emailBooking = new JTextField();
+		emailBooking.setColumns(10);
 
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
+		kk1Booking = new JTextField();
+		kk1Booking.setColumns(10);
 
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
+		kk2Booking = new JTextField();
+		kk2Booking.setColumns(10);
 
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
+		kk3Booking = new JTextField();
+		kk3Booking.setColumns(10);
 
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
+		kk4Booking = new JTextField();
+		kk4Booking.setColumns(10);
 
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
+		securityNoBooking = new JTextField();
+		securityNoBooking.setColumns(10);
 
 		btnBoka_1 = new JButton("BOKA :) ;) :P");
-		btnBoka_1.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				lblBokunTokstXd.setText("virkar ekki");
+		btnBoka_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e){
+				if (rdbtnBadarLeidir.isSelected()){
+					flightNumberOut = flightListOut.get(flightList.getSelectedIndex()).getFlightNumber();
+					flightNumberBack = flightListBack.get(flightListHome.getSelectedIndex()).getFlightNumber();
+					creditNO = kk1Booking.getText() + "-" + kk2Booking.getText() + "-" + kk3Booking.getText() + "-" 
+							+  kk4Booking.getText() + "-" + securityNoBooking.getText() +"-"+ monthExpires + "/" + yearExpires;
+					try {
+						int mafs = Booking.book(nafnBooking.getText(), simiBooking.getText(), heimilisfangBooking.getText(), emailBooking.getText(), creditNO, flightNumberOut, numberOfPassengers);
+						int mafs2 = Booking.book(nafnBooking.getText(), simiBooking.getText(), heimilisfangBooking.getText(), emailBooking.getText(), creditNO, flightNumberBack, numberOfPassengers);
+						lblBokunTokstXd.setText("Bokunarnumerin thin eru " + mafs + " og " + mafs2);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+				else {
+					flightNumberOut = flightListOut.get(flightList.getSelectedIndex()).getFlightNumber();
+					creditNO = kk1Booking.getText() + "-" + kk2Booking.getText() + "-" + kk3Booking.getText() + "-" 
+							+  kk4Booking.getText() + "-" + securityNoBooking.getText() +"-"+ monthExpires + "/" + yearExpires;
+					try {
+						int kukur = Booking.book(nafnBooking.getText(), simiBooking.getText(), heimilisfangBooking.getText(), emailBooking.getText(), creditNO, flightNumberOut, numberOfPassengers);
+						lblBokunTokstXd.setText("Bokunarnumerid thitt er " + kukur);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
+
 		btnBoka_1.setFont(new Font("Bauhaus 93", Font.PLAIN, 24));
 
-		lblBokunTokstXd = new JLabel("Bokun tokst XD :P :O :D");
+		lblBokunTokstXd = new JLabel("");
 		lblBokunTokstXd.setHorizontalAlignment(SwingConstants.CENTER);
 
 		expireMonth = new JComboBox();
+		expireMonth.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JComboBox cb = (JComboBox)arg0.getSource();
+				monthExpires = (int)cb.getSelectedItem();
+			}
+		});
 		for (int i = 1; i <= 12; i++) {
 			expireMonth.addItem(new Integer(i));
 		}
@@ -438,6 +477,12 @@ public class vidmot extends JFrame {
 		for (int i = 17; i <= 25; i++) {
 			expireYear.addItem(new Integer(i));
 		}
+		expireYear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				JComboBox cb = (JComboBox)arg0.getSource();
+				yearExpires = (int)cb.getSelectedItem();
+			}
+		});
 
 		JButton btnTilBaka = new JButton("Til baka");
 		btnTilBaka.addMouseListener(new MouseAdapter() {
@@ -475,73 +520,73 @@ public class vidmot extends JFrame {
 
 		GroupLayout groupLayout = new GroupLayout(bookingWindow.getContentPane());
 		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(25)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(textField, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))
+										.addGap(25)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+												.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(nafnBooking, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
+														.addGap(18)
+														.addComponent(simiBooking, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createSequentialGroup()
+														.addComponent(kk1Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(kk2Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(kk3Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(kk4Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.RELATED)
+														.addComponent(securityNoBooking, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addComponent(expireMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+														.addPreferredGap(ComponentPlacement.UNRELATED)
+														.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+												.addGroup(groupLayout.createSequentialGroup()
+														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																.addComponent(heimilisfangBooking, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+																.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
+														.addGap(18)
+														.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+																.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
+																.addComponent(emailBooking, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))))
+								.addComponent(btnTilBaka)
 								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(expireMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-										.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
-									.addGap(18)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
-										.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))))
-						.addComponent(btnTilBaka)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(38)
-							.addComponent(lblBokunFlugs, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(27, Short.MAX_VALUE))
-		);
+										.addGap(38)
+										.addComponent(lblBokunFlugs, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE)))
+						.addContainerGap(27, Short.MAX_VALUE))
+				);
 		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
+				groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addComponent(btnTilBaka)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblBokunFlugs, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
-					.addGap(21)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(expireMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
-					.addGap(67))
-		);
+						.addComponent(btnTilBaka)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(lblBokunFlugs, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+						.addGap(21)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(nafnBooking, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(simiBooking, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(heimilisfangBooking, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)
+								.addComponent(emailBooking, GroupLayout.PREFERRED_SIZE, 21, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(kk1Booking, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(kk2Booking, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(kk3Booking, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(kk4Booking, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(securityNoBooking, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(expireMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
+								.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
+						.addGap(67))
+				);
 		bookingWindow.getContentPane().setLayout(groupLayout);
 		bookingWindow.setVisible(false);
 

@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public class DataManager {
 
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void main(String[] args) throws IOException {
 		//String fileName = "flugtest.csv";
 		String fileName = "src/flugtest.csv";
 
@@ -37,7 +37,9 @@ public class DataManager {
 			System.out.println(placesFrom[i]);
 		} */
 		
-		adjustFlightFile(1000, 5);
+		
+		Booking booking  = new Booking("Gretar", "123123", "st" ,"ergeg", "str", 12345);
+		appendCSV(booking);
 
 	}
 
@@ -183,7 +185,7 @@ public class DataManager {
 	}
 	
 	public static void appendCSV(Booking booking) throws IOException {
-		FileWriter pw = new FileWriter("test.csv",true);
+		FileWriter pw = new FileWriter("src/bookings.csv",true);
 		StringBuilder line = new StringBuilder();
 
 		line.append(booking.getName());
@@ -195,6 +197,8 @@ public class DataManager {
 		line.append(booking.geteMail());
 		line.append(",");
 		line.append(booking.getCreditNO());
+		line.append(",");
+		line.append(booking.getBookingNO());
 		line.append(",");
 		line.append("\n");
 
