@@ -45,6 +45,15 @@ public class vidmot extends JFrame {
 	private JLabel lblPrufa;
 	private JLabel lblVidLeitFundust_1;
 	private JInternalFrame bookingWindow;
+	JLabel lblBokunTokstXd;
+	JButton btnBoka_1;
+	JComboBox numPassengers;
+	JComboBox pickWhereFrom;
+	JComboBox pickWhereTo;
+	JComboBox dagurUt;
+	JRadioButton rdbtnBadarLeidir;
+	JButton searchButton;
+	JLabel lblBokunFlugs;
 	/**
 	 * Launch the application.
 	 */
@@ -97,24 +106,29 @@ public class vidmot extends JFrame {
 	private JTextField textField_8;
 	private JComboBox expireMonth;
 	private JComboBox expireYear;
-	
+
 
 
 
 	public vidmot() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 924, 711);
+		setBounds(100, 100, 660, 562);
 		contentPane = new JPanel();
 		contentPane.setBackground(SystemColor.menu);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
+		//this.setExtendedState(this.getExtendedState() | JFrame.MAXIMIZED_BOTH);
 
-		
-		String [] places = {"KEF", "CPH", "BRU", "LAX"};
 
-		JButton searchButton = new JButton("LEITA!!!");
+		String [] placesFrom = DataManager.availablePlacesFrom(DataManager.crunchFile("src/flugtest.csv"));
+		String [] placesTo = DataManager.availablePlacesTo(DataManager.crunchFile("src/flugtest.csv"));
+
+		searchButton = new JButton("LEITA!!!");
+		searchButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
 		searchButton.setForeground(Color.BLACK);
 		searchButton.setBackground(Color.WHITE);
 		searchButton.addMouseListener(new MouseAdapter() {
@@ -124,12 +138,13 @@ public class vidmot extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				date = SearchAndBook.makeDate(day, month, year);
-				ArrayList<Flight> flightListOut = SearchAndBook.searchFlight(whereFromName, whereToName, date);
+				ArrayList<Flight> flightListOut = SearchAndBook.searchFlight(whereFromName, whereToName, date,numberOfPassengers);
 				Collections.sort(flightListOut);
 				String[] stringFlightListOut = SearchAndBook.stringCurrentResults(flightListOut);
 				flightList.setListData(stringFlightListOut);
+
 				dateHome = SearchAndBook.makeDate(dayHome, monthBack, yearBack);
-				ArrayList<Flight> flightListBack = SearchAndBook.searchFlight(whereToName, whereFromName, dateHome);
+				ArrayList<Flight> flightListBack = SearchAndBook.searchFlight(whereToName, whereFromName, dateHome,numberOfPassengers);
 				Collections.sort(flightListBack);
 				String[] stringFlightList = SearchAndBook.stringCurrentResults(flightListBack);
 				flightListHome.setListData(stringFlightList);
@@ -138,10 +153,63 @@ public class vidmot extends JFrame {
 		});
 
 		btnBoka = new JButton("BOOK");
+		btnBoka.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				if (flightList.getSelectedIndex() > -1){
+					bookingWindow.setVisible(true);
+					lbTitill.setVisible(false);
+					lblBrottfr.setVisible(false);
+					lblKoma.setVisible(false);
+					flightList.setVisible(false);
+					btnBoka.setVisible(false);
+					pickWhereFrom.setVisible(false);
+					pickWhereTo.setVisible(false);
+					numPassengers.setVisible(false);
+					pickWhereFrom.setVisible(false);
+					pickWhereTo.setVisible(false);
+					dagurUt.setVisible(false);
+					rdbtnBadarLeidir.setVisible(false);
+					lblVidLeitFundust.setVisible(false);
+					lblPrufa.setVisible(false);
+					lblVidLeitFundust_1.setVisible(false);
+					flightListHome.setVisible(false);
+					manudur.setVisible(false);
+					ar.setVisible(false);
+					dayHomeList.setVisible(false);
+					monthHome.setVisible(false);
+					yearHome.setVisible(false);
+					searchButton.setVisible(false);
+					if (rdbtnBadarLeidir.isSelected()) {
+						lblBokunFlugs.setText("Bokun flugs fra " + whereFromName + " til " + whereToName + " thann " + date + " og til baka thann " + dateHome + " fyrir " +  numberOfPassengers + ".");	
+					}
+					else {
+						lblBokunFlugs.setText("Bokun flugs fra " + whereFromName + " til " + whereToName + " thann " + date +" fyrir " +  numberOfPassengers + ".");
+					}
+				}
+			}
+		}
+				);
 		btnBoka.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if (flightList.getSelectedIndex() > -1){
-				bookingWindow.setVisible(true);
+					/*bookingWindow.setVisible(true);
+					lbTitill.setVisible(false);
+					lblBrottfr.setVisible(false);
+					lblKoma.setVisible(false);
+					flightList.setVisible(false);
+					flightListBackJList.setVisible(false);
+					btnBoka.setVisible(false);
+					lblVidLeitFundust.setVisible(false);
+					lblPrufa.setVisible(false);
+					lblVidLeitFundust_1.setVisible(false);
+					flightListHome.setVisible(false);
+					manudur.setVisible(false);
+					ar.setVisible(false);
+					dayHomeList.setVisible(false);
+					monthHome.setVisible(false);
+					yearHome.setVisible(false);*/
+
 				}
 			}
 		});
@@ -151,7 +219,7 @@ public class vidmot extends JFrame {
 		searchButton.setBounds(479, 213, 89, 64);
 		contentPane.add(searchButton);
 
-		JComboBox pickWhereFrom = new JComboBox(places);
+		pickWhereFrom = new JComboBox(placesFrom);
 		pickWhereFrom.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JComboBox cb = (JComboBox)arg0.getSource();
@@ -165,7 +233,7 @@ public class vidmot extends JFrame {
 		contentPane.add(pickWhereFrom);
 
 
-		JComboBox pickWhereTo = new JComboBox(places);
+		pickWhereTo = new JComboBox(placesTo);
 		pickWhereTo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				JComboBox cb = (JComboBox)arg0.getSource();
@@ -213,7 +281,7 @@ public class vidmot extends JFrame {
 		flightListHome.setBounds(37, 361, 345, 130);
 		contentPane.add(flightListHome);
 
-		JComboBox dagurUt = new JComboBox();
+		dagurUt = new JComboBox();
 		dagurUt.setBounds(200, 89, 82, 20);
 		contentPane.add(dagurUt);
 
@@ -253,27 +321,27 @@ public class vidmot extends JFrame {
 		ar = new JComboBox(arListi);
 		ar.setBounds(362, 89, 82, 20);
 		contentPane.add(ar);
-		
-		JRadioButton rdbtnBadarLeidir = new JRadioButton("Badar leidir");
+
+		rdbtnBadarLeidir = new JRadioButton("Badar leidir");
 		rdbtnBadarLeidir.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent arg0) {
 				if (arg0.getStateChange() == ItemEvent.SELECTED) {
 					dayHomeList.setVisible(true);
 					monthHome.setVisible(true);
 					yearHome.setVisible(true);
-			    }
-			    else if (arg0.getStateChange() == ItemEvent.DESELECTED) {
-			        dayHomeList.setVisible(false);
-			        monthHome.setVisible(false);
+				}
+				else if (arg0.getStateChange() == ItemEvent.DESELECTED) {
+					dayHomeList.setVisible(false);
+					monthHome.setVisible(false);
 					yearHome.setVisible(false);
-			    }
+				}
 			}
 		});
-		
-		
+
+
 		rdbtnBadarLeidir.setBounds(546, 88, 109, 23);
 		contentPane.add(rdbtnBadarLeidir);
-		
+
 		dayHomeList = new JComboBox();
 		dayHomeList.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -283,12 +351,12 @@ public class vidmot extends JFrame {
 		});
 		dayHomeList.setBounds(200, 133, 82, 20);
 		contentPane.add(dayHomeList);
-		
+
 		for (int i = 1; i <= maxDagur; i++) {
 			dayHomeList.addItem(new Integer(i));
 		}
 
-		
+
 		monthHome = new JComboBox();
 		monthHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -298,11 +366,11 @@ public class vidmot extends JFrame {
 		});
 		monthHome.setBounds(281, 133, 82, 20);
 		contentPane.add(monthHome);
-		
+
 		for (int i = 1; i <= maxManudur; i++) {
 			monthHome.addItem(new Integer(i));
 		}
-		
+
 		yearHome = new JComboBox(arListi);
 		yearHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -313,96 +381,145 @@ public class vidmot extends JFrame {
 		});
 		yearHome.setBounds(362, 133, 82, 20);
 		contentPane.add(yearHome);
-		
-		JComboBox numPassengers = new JComboBox();
+
+		numPassengers = new JComboBox();
 		numPassengers.setBounds(441, 89, 89, 20);
 		contentPane.add(numPassengers);
-		
+
 		bookingWindow = new JInternalFrame("Flight booking");
-		bookingWindow.setBounds(661, 89, 507, 437);
+		bookingWindow.setBounds(47, 34, 507, 437);
 		contentPane.add(bookingWindow);
-		
+
 		textField = new JTextField();
 		textField.setColumns(10);
-		
+
 		textField_1 = new JTextField();
 		textField_1.setColumns(10);
-		
+
 		textField_2 = new JTextField();
 		textField_2.setColumns(10);
-		
+
 		textField_3 = new JTextField();
 		textField_3.setColumns(10);
-		
+
 		textField_4 = new JTextField();
 		textField_4.setColumns(10);
-		
+
 		textField_5 = new JTextField();
 		textField_5.setColumns(10);
-		
+
 		textField_6 = new JTextField();
 		textField_6.setColumns(10);
-		
+
 		textField_7 = new JTextField();
 		textField_7.setColumns(10);
-		
+
 		textField_8 = new JTextField();
 		textField_8.setColumns(10);
-		
-		JButton btnBoka_1 = new JButton("BOKA :) ;) :P");
+
+		btnBoka_1 = new JButton("BOKA :) ;) :P");
+		btnBoka_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				lblBokunTokstXd.setText("virkar ekki");
+			}
+		});
 		btnBoka_1.setFont(new Font("Bauhaus 93", Font.PLAIN, 24));
-		
-		JLabel lblBokunTokstXd = new JLabel("Bokun tokst XD :P :O :D");
+
+		lblBokunTokstXd = new JLabel("Bokun tokst XD :P :O :D");
 		lblBokunTokstXd.setHorizontalAlignment(SwingConstants.CENTER);
-		
+
 		expireMonth = new JComboBox();
 		for (int i = 1; i <= 12; i++) {
 			expireMonth.addItem(new Integer(i));
 		}
-		
+
 		expireYear = new JComboBox();
 		for (int i = 17; i <= 25; i++) {
 			expireYear.addItem(new Integer(i));
 		}
-		
+
+		JButton btnTilBaka = new JButton("Til baka");
+		btnTilBaka.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				bookingWindow.setVisible(false);
+				lbTitill.setVisible(true);
+				lblBrottfr.setVisible(true);
+				lblKoma.setVisible(true);
+				flightList.setVisible(true);
+				btnBoka.setVisible(true);
+				pickWhereFrom.setVisible(true);
+				pickWhereTo.setVisible(true);
+				numPassengers.setVisible(true);
+				pickWhereFrom.setVisible(true);
+				pickWhereTo.setVisible(true);
+				dagurUt.setVisible(true);
+				rdbtnBadarLeidir.setVisible(true);
+				lblVidLeitFundust.setVisible(true);
+				lblPrufa.setVisible(true);
+				lblVidLeitFundust_1.setVisible(true);
+				flightListHome.setVisible(true);
+				manudur.setVisible(true);
+				ar.setVisible(true);
+				dayHomeList.setVisible(true);
+				monthHome.setVisible(true);
+				yearHome.setVisible(true);
+				searchButton.setVisible(true);
+			}
+		});
+
+		lblBokunFlugs = new JLabel("Bokun flugs");
+		lblBokunFlugs.setFont(new Font("Tahoma", Font.PLAIN, 9));
+		lblBokunFlugs.setHorizontalAlignment(SwingConstants.CENTER);
+
 		GroupLayout groupLayout = new GroupLayout(bookingWindow.getContentPane());
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(25)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(textField, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(expireMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(25)
 							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
-								.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(textField, GroupLayout.PREFERRED_SIZE, 251, GroupLayout.PREFERRED_SIZE)
+									.addGap(18)
+									.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, 159, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addComponent(textField_4, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textField_5, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textField_6, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textField_7, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED)
+									.addComponent(textField_8, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(expireMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(textField_1, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
+									.addGap(18)
+									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+										.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
+										.addComponent(textField_3, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE)))))
+						.addComponent(btnTilBaka)
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(38)
+							.addComponent(lblBokunFlugs, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE)))
 					.addContainerGap(27, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(68)
+					.addComponent(btnTilBaka)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblBokunFlugs, GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+					.addGap(21)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(textField_2, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
@@ -423,24 +540,24 @@ public class vidmot extends JFrame {
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)
 						.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
-					.addContainerGap(67, Short.MAX_VALUE))
+					.addGap(67))
 		);
 		bookingWindow.getContentPane().setLayout(groupLayout);
 		bookingWindow.setVisible(false);
-		
-		
+
+
 		for (int i = 1; i <= 8; i++) {
 			numPassengers.addItem(new Integer(i));
 		}
-		
+
 		numPassengers.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JComboBox cb = (JComboBox)e.getSource();
 				numberOfPassengers = (int)cb.getSelectedItem();
 			}
 		});
-		
-		
+
+
 		dayHomeList.setVisible(false);
 		monthHome.setVisible(false);
 		yearHome.setVisible(false);

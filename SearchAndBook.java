@@ -69,7 +69,7 @@ public class SearchAndBook {
 		return flightList;
 	}
 
-	public static ArrayList<Flight> searchFlight(String whereFrom, String whereTo, String date){
+	public static ArrayList<Flight> searchFlight(String whereFrom, String whereTo, String date, int numPassengers){
 		//String fileName = "flugtest.csv";
 		String fileName = "src/flugtest.csv";
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
@@ -83,7 +83,8 @@ public class SearchAndBook {
 
 			if(        whereFrom.equals(flightList.get(i).getWhereFrom().getName())
 					&& whereTo.equals(flightList.get(i).getWhereTo().getName())
-					&& date.equals(flightList.get(i).getDate()))
+					&& date.equals(flightList.get(i).getDate())
+					&& numPassengers <= flightList.get(i).getNumSeatsLeft() )
 			{
 				foundFlight.add(flightList.get(i));
 			}

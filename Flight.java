@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 
 public class Flight implements Comparable<Flight>{
 
@@ -83,7 +83,15 @@ public class Flight implements Comparable<Flight>{
 	  public int compareTo(Flight flight) {          
 		return (this.getPrice() < flight.getPrice() ? -1 : 
             (this.getPrice() == flight.getPrice() ? 0 : 1));  
-	  }    
+	  }
+	
+	public static int findFlightIndexByFlightNumber(ArrayList<Flight> flightList, int flightNumber  ){
+		for(int i = 0; i < flightList.size();i++){
+			if(flightList.get(i).getFlightNumber() == flightNumber) 
+				return i;
+		}
+		return -1;
+	}
 
 	
 }
