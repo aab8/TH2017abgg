@@ -18,7 +18,12 @@ public class Booking {
 	private String eMail;
 	private String creditNO;
 	private int bookingNO;
-	
+
+	public static void main(String[] args) throws IOException {
+		//List<List<String>> bookingFile = DataManager.scanFile("src/bookings.csv");
+		//System.out.println(bookingFile.get(1).get(3));
+	}
+
 	public Booking(String name, String phoneNO, String address, String eMail, String creditNO, int bookingNO) {
 		super();
 		this.name = name;
@@ -28,8 +33,8 @@ public class Booking {
 		this.creditNO = creditNO;
 		this.bookingNO = bookingNO;
 	}
-	
-	
+
+
 	public int getBookingNO() {
 		return bookingNO;
 	}
@@ -70,7 +75,8 @@ public class Booking {
 	public void setCreditNO(String creditNO) {
 		this.creditNO = creditNO;
 	}
-	
+
+
 	public static Integer[] getCurrentBookingNO(String fileName) {
 		List<List<String>> bookingFile = DataManager.scanFile(fileName);
 		Integer[] bookingNOs = new Integer[bookingFile.size()];
@@ -92,12 +98,13 @@ public class Booking {
 	}
 
 	public static int book(String name, String phoneNO, String address, String eMail, String creditNO, int flightNO, int numPassengers) throws IOException{
-		int bookingNO = generateBookingNO("src/bookings.csv");
+		//int bookingNO = generateBookingNO("src/bookings.csv");
+		int bookingNO = (int) (Math.random()*1000000)+1000; 
 		Booking booking = new Booking(name, phoneNO, address, eMail, creditNO, bookingNO);
 
 		DataManager.adjustFlightFile(flightNO, numPassengers);
 		DataManager.appendCSV(booking);
 		return bookingNO;
 	}
-	
+
 }
