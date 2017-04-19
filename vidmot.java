@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Collections;
 import javax.swing.JFrame;
@@ -33,11 +34,11 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import java.io.IOException;
 import javax.swing.UIManager;
+import javax.swing.JTextArea;
 
 public class vidmot extends JFrame {
 
 	private JPanel contentPane;
-	private JLabel lbTitill;
 	private JLabel lblBrottfr;
 	private JList flightList;
 	private JList flightListBackJList;
@@ -45,7 +46,7 @@ public class vidmot extends JFrame {
 	private JLabel lblVidLeitFundust;
 	private JLabel lblVidLeitFundust_1;
 	private JInternalFrame bookingWindow;
-	JLabel lblBokunTokstXd;
+	JTextArea lblBokunTokstXd;
 	JButton btnBoka_1;
 	JComboBox numPassengers;
 	JComboBox pickWhereFrom;
@@ -53,7 +54,7 @@ public class vidmot extends JFrame {
 	JComboBox dagurUt;
 	JRadioButton rdbtnBadarLeidir;
 	JButton searchButton;
-	JLabel lblBokunFlugs;
+	JTextArea lblBokunFlugs;
 	/**
 	 * Launch the application.
 	 */
@@ -144,6 +145,8 @@ public class vidmot extends JFrame {
 		
 		String [] placesFrom = DataManager.availablePlacesFrom(DataManager.crunchFile("src/flugtest.csv"));
 		String [] placesTo = DataManager.availablePlacesTo(DataManager.crunchFile("src/flugtest.csv"));
+		Arrays.sort(placesFrom);
+		Arrays.sort(placesTo);
 
 		searchButton = new JButton("Search for flights");
 		searchButton.addActionListener(new ActionListener() {
@@ -195,7 +198,6 @@ public class vidmot extends JFrame {
 					lblDagsetningFlugsDagurmnuurr.setVisible(false);
 					lblStafjldi.setVisible(false);
 					label.setVisible(false);
-					lbTitill.setVisible(false);
 					lblBrottfr.setVisible(false);
 					lblKoma.setVisible(false);
 					flightList.setVisible(false);
@@ -217,7 +219,7 @@ public class vidmot extends JFrame {
 					yearHome.setVisible(false);
 					searchButton.setVisible(false);
 					if (rdbtnBadarLeidir.isSelected()) {
-						lblBokunFlugs.setText("Booking flight from " + whereFromName + " to " + whereToName + "on the day of" + date + " and return flight on the day of " + dateHome + " for " +  numberOfPassengers + ".");	
+						lblBokunFlugs.setText("Booking flight from " + whereFromName + " to " + whereToName + " on the day of " + date + " and return flight on the day of " + dateHome + " for " +  numberOfPassengers + ".");	
 					}
 					else {
 						lblBokunFlugs.setText("Booking flight from " + whereFromName + " to " + whereToName + " on the day of " + date +" for " +  numberOfPassengers + ".");
@@ -259,10 +261,6 @@ public class vidmot extends JFrame {
 		pickWhereTo.setBackground(UIManager.getColor("ComboBox.buttonBackground"));
 		pickWhereTo.setBounds(121, 89, 82, 20);
 		contentPane.add(pickWhereTo);
-
-		lbTitill = new JLabel("Flugbókunarþjónustan BAGG");
-		lbTitill.setBounds(69, 11, 244, 51);
-		contentPane.add(lbTitill);
 
 		lblBrottfr = new JLabel("From");
 		lblBrottfr.setHorizontalAlignment(SwingConstants.LEFT);
@@ -409,7 +407,7 @@ public class vidmot extends JFrame {
 		contentPane.add(numPassengers);
 
 		bookingWindow = new JInternalFrame("Flight booking");
-		bookingWindow.setBounds(0, 0, 651, 542);  //100, 100, 671, 562
+		bookingWindow.setBounds(10, 0, 635, 499);  //100, 100, 671, 562
 		contentPane.add(bookingWindow);
 
 		nafnBooking = new JTextField("");
@@ -450,7 +448,7 @@ public class vidmot extends JFrame {
 					try {
 						int mafs = Booking.book(nafnBooking.getText(), simiBooking.getText(), heimilisfangBooking.getText(), emailBooking.getText(), creditNO, flightNumberOut, numberOfPassengers);
 						int mafs2 = Booking.book(nafnBooking.getText(), simiBooking.getText(), heimilisfangBooking.getText(), emailBooking.getText(), creditNO, flightNumberBack, numberOfPassengers);
-						lblBokunTokstXd.setText("Bokunarnumerin thin eru " + mafs + " og " + mafs2);
+						lblBokunTokstXd.setText("Your booking numbers are " + mafs + " and " + mafs2);
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
@@ -473,8 +471,9 @@ public class vidmot extends JFrame {
 
 		btnBoka_1.setFont(new Font("Bauhaus 93", Font.PLAIN, 18));
 
-		lblBokunTokstXd = new JLabel("");
-		lblBokunTokstXd.setHorizontalAlignment(SwingConstants.CENTER);
+		lblBokunTokstXd = new JTextArea("");
+		lblBokunTokstXd.setBackground(UIManager.getColor("Button.background"));
+		lblBokunTokstXd.setLineWrap(true);
 
 		expireMonth = new JComboBox();
 		expireMonth.addActionListener(new ActionListener() {
@@ -503,7 +502,6 @@ public class vidmot extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				bookingWindow.setVisible(false);
-				lbTitill.setVisible(true);
 				lblBrottfr.setVisible(true);
 				//lblKoma.setVisible(true);
 				flightList.setVisible(true);
@@ -528,9 +526,11 @@ public class vidmot extends JFrame {
 			}
 		});
 
-		lblBokunFlugs = new JLabel("Bokun flugs");
+		lblBokunFlugs = new JTextArea("Bokun flugs");
+		lblBokunFlugs.setBackground(UIManager.getColor("Button.background"));
+		lblBokunFlugs.setWrapStyleWord(true);
+		lblBokunFlugs.setLineWrap(true);
 		lblBokunFlugs.setFont(new Font("Tahoma", Font.PLAIN, 12));
-		lblBokunFlugs.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		lblName = new JLabel("Name");
 		
@@ -546,55 +546,56 @@ public class vidmot extends JFrame {
 		groupLayout.setHorizontalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(25)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(heimilisfangBooking, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									.addComponent(emailBooking, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
-								.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE)
-								.addGroup(groupLayout.createSequentialGroup()
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(nafnBooking, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
-										.addComponent(lblName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(label_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-									.addGap(18)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
-										.addComponent(simiBooking, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
-										.addComponent(label_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-										.addComponent(label_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addComponent(kk1Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(kk2Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(kk3Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(kk4Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.RELATED)
-									.addComponent(securityNoBooking, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(expireMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-										.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
-										.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-								.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)))
-						.addComponent(btnTilBaka)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(47)
-							.addComponent(lblBokunFlugs, GroupLayout.PREFERRED_SIZE, 396, GroupLayout.PREFERRED_SIZE)))
-					.addContainerGap(25, Short.MAX_VALUE))
+					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblBokunFlugs, GroupLayout.PREFERRED_SIZE, 418, GroupLayout.PREFERRED_SIZE)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(25)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(heimilisfangBooking, GroupLayout.PREFERRED_SIZE, 250, GroupLayout.PREFERRED_SIZE)
+										.addGap(18)
+										.addComponent(emailBooking, GroupLayout.PREFERRED_SIZE, 160, GroupLayout.PREFERRED_SIZE))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addPreferredGap(ComponentPlacement.RELATED)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(nafnBooking, GroupLayout.DEFAULT_SIZE, 251, Short.MAX_VALUE)
+											.addComponent(lblName, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(label_1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+										.addGap(18)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(simiBooking, GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
+											.addComponent(label_2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(label_3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addGroup(groupLayout.createSequentialGroup()
+												.addComponent(kk1Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(kk2Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(kk3Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(kk4Booking, GroupLayout.PREFERRED_SIZE, 42, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.RELATED)
+												.addComponent(securityNoBooking, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+												.addPreferredGap(ComponentPlacement.UNRELATED)
+												.addComponent(expireMonth, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+											.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 171, GroupLayout.PREFERRED_SIZE)
+											.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+									.addComponent(label_4, GroupLayout.PREFERRED_SIZE, 210, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(btnTilBaka)))
+					.addContainerGap(169, Short.MAX_VALUE))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.LEADING)
 				.addGroup(groupLayout.createSequentialGroup()
 					.addComponent(btnTilBaka)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblBokunFlugs, GroupLayout.DEFAULT_SIZE, 48, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 73, Short.MAX_VALUE)
+					.addComponent(lblBokunFlugs, GroupLayout.PREFERRED_SIZE, 80, GroupLayout.PREFERRED_SIZE)
 					.addPreferredGap(ComponentPlacement.RELATED)
 					.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
 						.addComponent(lblName)
@@ -624,12 +625,12 @@ public class vidmot extends JFrame {
 						.addComponent(expireYear, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
-						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(65)
-							.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE)))
-					.addGap(21))
+							.addComponent(btnBoka_1, GroupLayout.PREFERRED_SIZE, 60, GroupLayout.PREFERRED_SIZE))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addGap(50)
+							.addComponent(lblBokunTokstXd, GroupLayout.PREFERRED_SIZE, 85, GroupLayout.PREFERRED_SIZE)))
+					.addGap(60))
 		);
 		bookingWindow.getContentPane().setLayout(groupLayout);
 		bookingWindow.setVisible(false);
