@@ -59,7 +59,6 @@ public class vidmot extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		//String [] places = {"KEF", "CPH", "BRU", "LAX"};
 
 
 		EventQueue.invokeLater(new Runnable() {
@@ -135,13 +134,6 @@ public class vidmot extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-
-		//thessi lina er timabundin
-		//setExtendedState(getExtendedState() | JFrame.MAXIMIZED_BOTH);
-
-
-
-
 
 		String [] placesFrom = DataManager.availablePlacesFrom(DataManager.crunchFile("src/flugtest.csv"));
 		String [] placesTo = DataManager.availablePlacesTo(DataManager.crunchFile("src/flugtest.csv"));

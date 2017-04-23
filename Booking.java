@@ -20,8 +20,7 @@ public class Booking {
 	private int bookingNO;
 
 	public static void main(String[] args) throws IOException {
-		//List<List<String>> bookingFile = DataManager.scanFile("src/bookings.csv");
-		//System.out.println(bookingFile.get(1).get(3));
+		
 	}
 
 	public Booking(String name, String phoneNO, String address, String eMail, String creditNO, int bookingNO) {

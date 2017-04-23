@@ -24,32 +24,7 @@ public class SearchAndBook {
 
 
 	public static void main(String[] args) {
-		//String fileName = "flugtest.csv";
-		//String fileName = "src/flugtest.csv";
-
-		System.out.println(makeDate(7,4,2017));
-		System.out.println(makeDate(7,12,2017));
-		System.out.println(makeDate(17,12,2017));
-		//String hvadan = "KEF";
-		//String hvert = "BRU";
-		//String hvenaer = "20.04.17";
-
-		//String hvenaerHeim = "30.04.17";
-		//ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
-		//ArrayList<Flight> ut = searchFlight(flightList,hvadan, hvert, hvenaer);
-		//ArrayList<Flight> heim = searchFlightBack(hvert,hvadan,hvenaerHeim);
-
-
-		//System.out.println("Fann thessi flug ut, reyndi ad rada eftir dagsetningu:\n");
-		//System.out.println("Fann thessi flug ut, odyrasta efst:\n");
-		//Collections.sort(ut);
-		//printCurrentResults(ut);
-		//System.out.println("Fann thessi flug heim, odyrasta efst:\n");
-		//Collections.sort(heim);
-		//printCurrentResults(heim);
-		//System.out.println("\nAf ollum thessum!\n");
-		//dateSort(heim);
-		//printCurrentResults(heim);
+		
 	}
 
 
@@ -70,7 +45,6 @@ public class SearchAndBook {
 	}
 
 	public static ArrayList<Flight> searchFlight(String whereFrom, String whereTo, String date, int numPassengers){
-		//String fileName = "flugtest.csv";
 		String fileName = "src/flugtest.csv";
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);
 
@@ -95,7 +69,6 @@ public class SearchAndBook {
 	}
 
 	public static ArrayList<Flight> searchFlightBack(String whereFrom, String whereTo, String dateBack){
-		//String fileName = "flugtest.csv";
 		String fileName = "src/flugtest.csv";
 
 		ArrayList<Flight> flightList = DataManager.crunchFile(fileName);

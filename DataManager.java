@@ -13,33 +13,7 @@ import java.io.IOException;
 public class DataManager {
 
 	public static void main(String[] args) throws IOException {
-		//String fileName = "flugtest.csv";
-		String fileName = "src/flugtest.csv";
-
-		/* PRENTAR ÚT "flugtest.csv"
-		List<List<String>> lines = scanFile(fileName);
-		int lineNo = 1;
-		for(List<String> line: lines) {
-			int columnNo = 1;
-			for (String value: line) {
-				System.out.println("Line " + lineNo + " Column " + columnNo + ": " + value);
-				columnNo++;
-			}
-			lineNo++;
-		}
-		 */
-		/*ArrayList<Flight> flightList = crunchFile(fileName);
-		String[] placesFrom = availablePlacesFrom(flightList);
-		System.out.println("Lengd placesFrom: " + placesFrom.length);
-
-		for(int i = 0; i < placesFrom.length; i++) {
-
-			System.out.println(placesFrom[i]);
-		} */
 		
-		
-		Booking booking  = new Booking("Gretar", "123123", "st" ,"ergeg", "str", 12345);
-		appendCSV(booking);
 
 	}
 
